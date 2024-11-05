@@ -38,4 +38,4 @@ jobs:
     # Restart backend server (assuming PM2 is used)
     - name: Restart Backend Server
       run: |
-        pm2 restart backend/src/server.js || pm2 start backend/src/server.js
+        pm2 start backend/src/server.js
