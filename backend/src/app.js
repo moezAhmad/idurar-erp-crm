@@ -1,4 +1,7 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
+
 
 const cors = require('cors');
 const compression = require('compression');
@@ -35,6 +38,23 @@ app.use(compression());
 // app.use(fileUpload());
 
 // Here our API Routes
+
+const buildPath = path.join(__dirname, 'dist');
+app.use((req, res, next) => {
+  if (!fs.existsSync(buildPath)) {
+    // If the build folder doesn't exist, send an error HTML page
+    const errorHtml = `
+      <h1>Error Occured</h1>
+    `;
+    res.status(500).send(errorHtml);  // Respond with a 500 status code and error HTML
+  } else {
+    next();
+  }
+});
+
+// Serve the static files from the frontend build folder if it exists
+app.use(express.static(buildPath));
+
 
 app.use('/api', coreAuthRouter);
 app.use('/api', adminAuth.isValidAuthToken, coreApiRouter);
