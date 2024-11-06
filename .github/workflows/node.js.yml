@@ -18,13 +18,15 @@ jobs:
     - name: Create .env (backend)
       run: |
         cd backend
-        echo "${{ secrets.SERVER_ENV }}" > .env
+        echo "DATABASE=${{ secrets.DATABASE }}" >> .env
 
     # Set Environment variables
     - name: Create .env (frontend)
       run: |
         cd frontend
-        echo "${{ secrets.CLIENT_ENV }}" > .env
+        echo "VITE_BACKEND_SERVER=${{ secrets.VITE_BACKEND_SERVER }}" >> .env
+        echo "VITE_FILE_BASE_URL=${{secrets.VITE_FILE_BASE_URL}}" >> .env
+        echo "PROD = false" >> .env
 
     # Install dependencies in the frontend and backend directories
     - name: Install dependencies for frontend
