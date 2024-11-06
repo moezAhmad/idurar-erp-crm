@@ -1,0 +1,48 @@
+name: CI/CD for MERN Stack on AWS EC2 (Self-Hosted Runner)
+
+on:
+  push:
+    branches:
+      - master
+  
+jobs:
+  deploy:
+    runs-on: self-hosted  # Use the self-hosted runner
+
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Set Environment variables
+    - name: Create .env
+      run: |
+        cd backend
+        echo "DATABASE=${{ secrets.DATABASE }}" >> .env
+
+        
+    # Install dependencies in the frontend and backend directories
+    - name: Install dependencies for frontend
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Install dependencies for backend
+      run: |
+        cd backend
+        npm install
+
+    # Copy the build output (dist) from frontend to backend
+    - name: Copy dist folder to backend/src
+      run: |
+        cp -r frontend/dist backend/src/
+
+    # # Restart backend server (assuming PM2 is used)
+    # - name: Restart Backend Server
+    #   run: |
+    #     pm2 restart backend
