@@ -19,7 +19,7 @@ jobs:
       run: |
         cd backend
         touch .env
-        echo "$ENV" > .env
+        echo "${{secrets.DATABASE}}" > .env
 
         
     # Install dependencies in the frontend and backend directories
