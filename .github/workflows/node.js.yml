@@ -13,7 +13,14 @@ jobs:
     # Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
-      
+
+    # Set Environment variables
+    - name: Create .env
+      run: |
+        touch .env
+        echo "${{secrets.ENV}}" > .env
+
+        
     # Install dependencies in the frontend and backend directories
     - name: Install dependencies for frontend
       run: |
@@ -33,9 +40,9 @@ jobs:
     # Copy the build output (dist) from frontend to backend
     - name: Copy dist folder to backend/src
       run: |
-        cp -r frontend/dist/* backend/src/
+        cp -r frontend/dist backend/src/
 
-    # Restart backend server (assuming PM2 is used)
+    # # Restart backend server (assuming PM2 is used)
     # - name: Restart Backend Server
     #   run: |
-    #     pm2 start backend/src/server.js
+    #     pm2 restart backend
