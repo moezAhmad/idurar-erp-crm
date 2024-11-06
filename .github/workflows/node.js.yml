@@ -36,6 +36,6 @@ jobs:
         cp -r frontend/dist/* backend/src/
 
     # Restart backend server (assuming PM2 is used)
-    - name: Restart Backend Server
-      run: |
-        pm2 start backend/src/server.js
+    # - name: Restart Backend Server
+    #   run: |
+    #     pm2 start backend/src/server.js
