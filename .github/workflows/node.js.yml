@@ -26,7 +26,7 @@ jobs:
         cd frontend
         echo "VITE_BACKEND_SERVER=${{ secrets.VITE_BACKEND_SERVER }}" >> .env
         echo "VITE_FILE_BASE_URL=${{secrets.VITE_FILE_BASE_URL}}" >> .env
-        echo "PROD = true" >> .env
+        echo "PROD = false" >> .env
 
     # Install dependencies in the frontend and backend directories
     - name: Install dependencies for frontend
@@ -49,13 +49,7 @@ jobs:
       run: |
         cp -r frontend/dist backend/src/
 
-    # Check if PM2 is running a process named "backend" and restart it, or start it if not found
-    - name: Ensure PM2 process "backend" is running
+    # Restart backend server (assuming PM2 is used)
+    - name: Restart Backend Server
       run: |
-        if pm2 list | grep -q 'backend'; then
-          echo "PM2 process 'backend' is running, restarting..."
-          pm2 restart backend
-        else
-          echo "PM2 process 'backend' is not running, starting..."
-          pm2 start backend.js --name backend 
-      
+        pm2 restart backend
