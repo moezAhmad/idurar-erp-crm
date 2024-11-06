@@ -26,7 +26,7 @@ jobs:
         cd frontend
         echo "VITE_BACKEND_SERVER=${{ secrets.VITE_BACKEND_SERVER }}" >> .env
         echo "VITE_FILE_BASE_URL=${{secrets.VITE_FILE_BASE_URL}}" >> .env
-        echo "PROD = false" >> .env
+        echo "PROD = true" >> .env
 
     # Install dependencies in the frontend and backend directories
     - name: Install dependencies for frontend
