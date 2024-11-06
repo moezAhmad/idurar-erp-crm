@@ -17,9 +17,9 @@ jobs:
     # Set Environment variables
     - name: Create .env
       run: |
+        cd backend
         touch .env
         echo "$ENV" > .env
-        cat .env
 
         
     # Install dependencies in the frontend and backend directories
