@@ -18,8 +18,7 @@ jobs:
     - name: Create .env
       run: |
         cd backend
-        touch .env
-        echo "${{secrets.DATABASE}}" > .env
+        echo "DATABASE=${{ secrets.DATABASE }}" >> .env
 
         
     # Install dependencies in the frontend and backend directories
